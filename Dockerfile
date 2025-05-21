@@ -1,5 +1,9 @@
 FROM php:8.3-fpm
 
+ARG USER=app_user
+ARG UID=1000
+ARG GID=1000
+
 # Установка зависимостей
 RUN apt-get update && apt-get install -y \
     git \
@@ -11,6 +15,12 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libpq-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Создание пользователя
+RUN groupadd --gid ${GID} ${USER} || true \
+    && useradd -u ${UID} -g ${GID} -s /bin/bash -d /var/www/html -m ${USER} \
+    && usermod -aG sudo ${USER} \
+    && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Установка PHP-расширений
 RUN docker-php-ext-install pdo pdo_pgsql pgsql mbstring exif pcntl bcmath opcache
@@ -37,5 +47,10 @@ COPY src/ .
 # Генерация автозагрузки
 RUN composer dump-autoload
 
-# Установка прав
-RUN chown -R www-data:www-data /var/www/html
+# Настройка прав
+RUN chown -R ${USER}:${USER} /var/www/html && \
+    chown -R ${USER}:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
+    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Пользователь по умолчанию
+USER ${USER}

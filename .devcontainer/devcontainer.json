@@ -12,6 +12,10 @@
         ]
       }
     },
-    "postCreateCommand": "composer install && php artisan key:generate"
+    "postCreateCommand": "composer install && php artisan key:generate && php artisan ide-helper:generate && php artisan ide-helper:models App\\Models\\*",
+    "mounts": [
+      "source=${localWorkspaceFolder}/src,target=/var/www/html,type=bind"
+    ],
+    "remoteUser": "app_user"
   }
   
