@@ -14,14 +14,10 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $categories = [
-            ['name' => 'легкий'],
-            ['name' => 'хрупкий'],
-            ['name' => 'тяжелый'],
-        ];
+        $categories = ['легкий', 'хрупкий', 'тяжелый'];
 
         foreach ($categories as $category) {
-            Category::firstOrCreate(['name' => $category['name']]);
+            Category::firstOrCreate(['name' => $category]);
         }
     }
 }
