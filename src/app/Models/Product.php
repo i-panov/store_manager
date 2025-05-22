@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $price
  *
  * @property Category $category
+ * @property Order[] $orders
  */
 class Product extends Model
 {
@@ -30,5 +31,9 @@ class Product extends Model
 
     public function category() {
         return $this->hasOne(Category::class, 'category_id');
+    }
+
+    public function orders() {
+        return $this->hasMany(Order::class, 'product_id');
     }
 }
