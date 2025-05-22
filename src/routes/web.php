@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['prefix' => '/categories'], function() {
+    Route::get('/', [CategoriesController::class, 'index'])->name('categories.index');
+    Route::post('/', [CategoriesController::class, 'create'])->name('categories.create');
+    Route::put('/{id}', [CategoriesController::class, 'update'])->name('categories.update');
+    Route::delete('/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
 });
