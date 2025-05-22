@@ -12,7 +12,7 @@
         ]
       }
     },
-    "postCreateCommand": "composer install && php artisan key:generate && php artisan ide-helper:generate && php artisan ide-helper:models App\\Models\\*",
+    "postCreateCommand": "composer install && php artisan key:generate && php artisan ide-helper:generate && php artisan ide-helper:models",
     "mounts": [
       "source=${localWorkspaceFolder}/src,target=/var/www/html,type=bind"
     ],
