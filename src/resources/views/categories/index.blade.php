@@ -1,6 +1,6 @@
 @php
     $breadcrumbs = [
-        ['name' => 'Главная', 'url' => route('categories.index')],
+        ['name' => 'Главная', 'url' => '/'],
         ['name' => 'Категории']
     ];
 @endphp

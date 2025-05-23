@@ -21,7 +21,7 @@ class Product extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['name', 'description', 'price'];
+    protected $fillable = ['category_id', 'name', 'description', 'price'];
 
     protected $casts = [
         'id' => 'int',
@@ -30,10 +30,19 @@ class Product extends Model
     ];
 
     public function category() {
-        return $this->hasOne(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function orders() {
         return $this->hasMany(Order::class, 'product_id');
+    }
+
+    public function priceAsFloat(): float {
+        return $this->price / 100;
+    }
+
+    public function formattedPrice(bool $withCurrency = true): string {
+        $n = number_format($this->price / 100, 2, '.', ' ');
+        return $withCurrency ? "$n ₽" : $n;
     }
 }
