@@ -25,7 +25,9 @@ class SaveCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        if (request()->routeIs('categories.create')) {
+        $request = request();
+
+        if ($request->routeIs('categories.create')) {
             return [
                 'create_name' => [
                     'required',
@@ -34,11 +36,11 @@ class SaveCategoryRequest extends FormRequest
             ];
         }
 
-        if (request()->routeIs('categories.update')) {
+        if ($request->routeIs('categories.update')) {
             return [
                 'update_name.*' => [
                     'required',
-                    Rule::unique(Category::class, 'name')->ignore(request()->id),
+                    Rule::unique(Category::class, 'name')->ignore($request->id),
                 ],
             ];
         }

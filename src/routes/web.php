@@ -44,5 +44,6 @@ Route::group(['prefix' => '/orders'], function() {
     Route::get('/{id}', [OrdersController::class, 'show'])->name('orders.show');
     Route::get('/{id}/edit', [OrdersController::class, 'edit'])->name('orders.edit');
     Route::put('/{id}', [OrdersController::class, 'update'])->name('orders.update');
+    Route::patch('/{id}/complete', [OrdersController::class, 'complete'])->name('orders.complete');
     Route::delete('/{id}', [OrdersController::class, 'destroy'])->name('orders.destroy');
 });

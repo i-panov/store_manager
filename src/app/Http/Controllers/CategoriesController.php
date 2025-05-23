@@ -25,13 +25,13 @@ class CategoriesController extends Controller
     public function update(SaveCategoryRequest $saveCategoryRequest, $id)
     {
         $data = $saveCategoryRequest->validated();
-        Category::where('id', $id)->update(['name' => $data['update_name'][$id]]);
+        Category::findOrFail($id)->update(['name' => $data['update_name'][$id]]);
         return redirect()->route('categories.index')->with('success', 'Категория обновлена.');
     }
 
     public function destroy($id)
     {
-        Category::where('id', $id)->delete();
+        Category::findOrFail($id)->delete();
         return redirect()->route('categories.index')->with('success', 'Категория удалена.');
     }
 }

@@ -14,14 +14,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $customer_name
  * @property string $comment
  *
- * @property Product[] $products
- * @property int $fullPrice
+ * @property Product $product
  */
 class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_count', 'product_price', 'status', 'customer_name', 'comment'];
+    protected $fillable = ['product_id', 'product_count', 'product_price', 'status', 'customer_name', 'comment'];
 
     protected $casts = [
         'id' => 'int',
@@ -31,17 +30,11 @@ class Order extends Model
         'status' => OrderStatus::class,
     ];
 
-    public function products() {
-        return $this->hasMany(Product::class, 'product_id');
+    public function product() {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function fullPrice(): int {
-        return $this->product_count * $this->product_price;
+        return $this->product_count * $this->product_price / 100;
     }
-}
-
-enum OrderStatus : string
-{
-    case NEW = 'new';
-    case COMPLETED = 'completed';
 }

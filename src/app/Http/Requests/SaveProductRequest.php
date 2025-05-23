@@ -31,7 +31,7 @@ class SaveProductRequest extends FormRequest
                 Rule::exists(Category::class, 'id'),
             ],
             'name' => 'required',
-            'price' => 'required|decimal:0,2',
+            'price' => 'required|decimal:0,2|min:0',
             'description' => 'required',
         ];
     }
