@@ -23,21 +23,18 @@
             @endif
 
             <div class="row g-3 mb-3">
-                <!-- Клиент -->
                 <div class="col-md-6">
                     <label for="customer_name" class="form-label">Имя клиента</label>
                     <input type="text"
                            name="customer_name"
                            id="customer_name"
                            value="{{ old('customer_name', $order?->customer_name ?? '') }}"
-                           class="form-control @error('customer_name') is-invalid @enderror"
-                           required>
+                           class="form-control @error('customer_name') is-invalid @enderror">
                     @error('customer_name')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <!-- Товар -->
                 @if ($order ?? false)
                     <div class="col-md-6">
                         <label class="form-label">Товар</label>
@@ -60,7 +57,6 @@
                     </div>
                 @endif
 
-                <!-- Количество -->
                 <div class="col-md-6">
                     <label for="product_count" class="form-label">Количество</label>
                     <input type="number"
@@ -68,14 +64,12 @@
                            id="product_count"
                            min="0"
                            value="{{ old('product_count', $order->product_count ?? '') }}"
-                           class="form-control @error('product_count') is-invalid @enderror"
-                           required>
+                           class="form-control @error('product_count') is-invalid @enderror">
                     @error('product_count')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <!-- Комментарий -->
                 <div class="col-md-12">
                     <label for="comment" class="form-label">Комментарий</label>
                     <textarea name="comment"
@@ -88,7 +82,6 @@
                 </div>
             </div>
 
-            <!-- Кнопки -->
             <button type="submit" class="btn btn-primary">
                 {{ $order ?? false ? 'Сохранить изменения' : 'Добавить заказ' }}
             </button>
